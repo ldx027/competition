@@ -2,20 +2,26 @@
 #include <vector>
 using namespace std;
 
-int find(vector<int> &vec, int beg, int end, int x)
+int binFind(vector<int> &vec, int x)
 {
-    if (beg > end) return -1;
-    int mid = beg + ((end - beg) >> 1);
-    int left = mid, right = mid;
-    while (vec[left] == vec[mid]) left--;
-    while (vec[right] == vec[mid]) right++;
+    int beg = 0, end = vec.size() - 1, mid;
+    int left, right;
 
-    if (vec[mid] == x) return left + 2;
-    else if (vec[mid] > x) return find(vec, beg, left, x);
-    else if (vec[mid] < x) return find(vec, right, end, x);
+    while (beg <= end)
+    {
+        mid = beg + ((end - beg) >> 1);
+        left = right = mid;
+        while (left - 1 >= beg && vec[left - 1] == vec[mid]) left--;
+        while (right + 1 <= end && vec[right + 1] == vec[mid]) right++;
+
+        if (vec[left] == x) return left;
+        if (vec[mid] > x) end = left - 1;
+        else beg = right + 1;
+    }
+
+    return -2;
 }
 
-vector<int> vec;
 int main()
 {
     ios::sync_with_stdio(false);
@@ -24,14 +30,16 @@ int main()
 
     int n, m;
     cin >> n >> m;
-    vec.resize(n);
+
+    vector<int> vec(n);
+
     for (int i = 0; i < n; i++) cin >> vec[i];
 
     int x;
-    while (m--)
+    for (int i = 0; i < m; i++)
     {
         cin >> x;
-        cout << find(vec, 0, vec.size() - 1, x) << " ";
+        cout << binFind(vec, x) + 1 << " ";
     }
 
     return 0;
