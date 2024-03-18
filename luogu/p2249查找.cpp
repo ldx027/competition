@@ -2,7 +2,9 @@
 #include <vector>
 using namespace std;
 
-int binFind(vector<int> &vec, int x)
+vector<int> vec;
+
+int binFind(int x)
 {
     int beg = 0, end = vec.size() - 1, mid;
     int left, right;
@@ -31,15 +33,14 @@ int main()
     int n, m;
     cin >> n >> m;
 
-    vector<int> vec(n);
-
+    vec.resize(n);
     for (int i = 0; i < n; i++) cin >> vec[i];
 
     int x;
     for (int i = 0; i < m; i++)
     {
         cin >> x;
-        cout << binFind(vec, x) + 1 << " ";
+        cout << binFind(x) + 1 << " ";
     }
 
     return 0;
