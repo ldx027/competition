@@ -12,7 +12,7 @@ ll n2ten(string num, int n)
     for (auto it = num.begin(); it != num.end(); it++)
     {
         rst *= n;
-        if (*it >= '0' && *it <'9') rst += *it - '0';
+        if (*it >= '0' && *it <= '9') rst += *it - '0';
         else if (*it >= 'A' && *it <= 'F') rst += *it - 'A' + 10;
     }
 
