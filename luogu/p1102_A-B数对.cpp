@@ -23,9 +23,10 @@ int main()
     int ans = 0;
     for (int i = 0; i < N; i++)
     {
-        int lower = lower_bound(vec.begin(), vec.end(), vec[i] - C) - vec.begin();
-        int upper = upper_bound(vec.begin() + lower, vec.end(), vec[i] - C) - vec.begin();
-        ans += upper - lower;
+        auto lower = lower_bound(vec.begin(), vec.end(), vec[i] - C);
+        auto upper = upper_bound(lower, vec.end(), vec[i] - C);
+        if (lower != vec.end() + 1)
+            ans += upper - lower;
     }
 
     cout << ans << endl;
