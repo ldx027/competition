@@ -3,9 +3,11 @@
 #include <string>
 using namespace std;
 
-int n2ten(string num, int n)
+#define ll long long
+
+ll n2ten(string num, int n)
 {
-    int rst = 0;
+    ll rst = 0;
     bool flg = true;
     for (auto it = num.begin(); it != num.end(); it++)
     {
@@ -22,7 +24,7 @@ int n2ten(string num, int n)
     return flg ? rst : -rst;
 }
 
-string ten2n(int num, int n)
+string ten2n(ll num, int n)
 {
     bool flg = true;
     if (num < 0) flg = false, num *= -1;
