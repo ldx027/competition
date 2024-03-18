@@ -8,26 +8,19 @@ using namespace std;
 ll n2ten(string num, int n)
 {
     ll rst = 0;
-    bool flg = true;
+
     for (auto it = num.begin(); it != num.end(); it++)
     {
-        if (*it == '-')
-        {
-            flg = false;
-            continue;;
-        }
         rst *= n;
         if (*it >= '0' && *it <'9') rst += *it - '0';
         else if (*it >= 'A' && *it <= 'F') rst += *it - 'A' + 10;
     }
 
-    return flg ? rst : -rst;
+    return rst;
 }
 
 string ten2n(ll num, int n)
 {
-    bool flg = true;
-    if (num < 0) flg = false, num *= -1;
     list<int> lst;
     while (num) 
     {
@@ -36,7 +29,6 @@ string ten2n(ll num, int n)
     }
 
     string rst;
-    if (!flg) rst.push_back('-');
     for (auto it = lst.begin(); it != lst.end(); it++)
     {
         if (*it < 10) rst.push_back(*it + '0');
@@ -58,7 +50,9 @@ int main()
     cin >> n >> num >> m;
 
     // cout << n2ten(num, n) << endl;
-    cout << ten2n(n2ten(num, n), m) << endl;
+    string str = ten2n(n2ten(num, n), m);
+    if (str.size() == 0) str = "0";
+    cout << str << endl;
 
     return 0;
 }
