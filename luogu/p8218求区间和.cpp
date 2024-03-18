@@ -12,12 +12,11 @@ int main()
     cin >> n;
 
     int x;
+    vector<int> vec(n);
+    for (int i = 0; i < n; i++) cin >> vec[i];
+
     vector<int> sum(n + 1, 0);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> x;
-        for (int j = i + 1; j < n + 1; j++) sum[j] += x;
-    }
+    for (int i = 1; i < n + 1; i++) sum[i] = sum[i - 1] + vec[i - 1];
 
     cin >> m;
 
