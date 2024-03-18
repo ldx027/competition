@@ -20,12 +20,12 @@ int main()
     for (int i = 0; i < N; i++) cin >> vec[i];
     sort(vec.begin(), vec.end());
 
-    int ans = 0;
+    ll ans = 0;
     for (int i = 0; i < N; i++)
     {
         auto lower = lower_bound(vec.begin(), vec.end(), vec[i] - C);
         auto upper = upper_bound(lower, vec.end(), vec[i] - C);
-        if (lower != vec.end() + 1)
+        if (lower != vec.end())
             ans += upper - lower;
     }
 
