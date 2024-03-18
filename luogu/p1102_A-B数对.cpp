@@ -3,7 +3,9 @@
 #include <algorithm>
 using namespace std;
 
-vector<int> vec;
+#define ll long long
+
+vector<ll> vec;
 
 int main()
 {
