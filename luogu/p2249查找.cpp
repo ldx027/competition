@@ -1,26 +1,32 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 vector<int> vec;
 
 int binFind(int x)
 {
-    int beg = 0, end = vec.size() - 1, mid;
-    int left, right;
+    // int beg = 0, end = vec.size() - 1, mid;
+    // int left, right;
 
-    while (beg <= end)
-    {
-        mid = beg + ((end - beg) >> 1);
-        left = right = mid;
-        while (left - 1 >= beg && vec[left - 1] == vec[mid]) left--;
-        while (right + 1 <= end && vec[right + 1] == vec[mid]) right++;
+    // while (beg <= end)
+    // {
+    //     mid = beg + ((end - beg) >> 1);
+    //     left = right = mid;
+    //     while (left - 1 >= beg && vec[left - 1] == vec[mid]) left--;
+    //     while (right + 1 <= end && vec[right + 1] == vec[mid]) right++;
 
-        if (vec[left] == x) return left;
-        if (vec[mid] > x) end = left - 1;
-        else beg = right + 1;
-    }
+    //     if (vec[left] == x) return left;
+    //     if (vec[mid] > x) end = left - 1;
+    //     else beg = right + 1;
+    // }
 
+    // return -2;
+
+    int rst = lower_bound(vec.begin(), vec.end(), x) - vec.begin();
+
+    if (vec[rst] == x) return rst;
     return -2;
 }
 
