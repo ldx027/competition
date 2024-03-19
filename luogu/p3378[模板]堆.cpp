@@ -31,7 +31,7 @@ void pop()
     {
         if (idx * 2 + 1 >= heap.size()) break;
         int largest = heap[idx] > heap[idx * 2 + 1] ? idx : (idx * 2 + 1);
-        largest = (idx * 2 + 2) < heap.size() && heap[idx * 2 + 2] > heap[largest] ? (idx * 2 + 2) : largest;
+        largest = ((idx * 2 + 2) < heap.size() && heap[idx * 2 + 2] > heap[largest]) ? (idx * 2 + 2) : largest;
         if (idx == largest) break;
         swap(idx, largest);
         idx = largest;
@@ -54,11 +54,11 @@ int main()
         if (op == 1)
         {
             cin >> x;
-            insert(x);
+            insert(-x);
         }
         else if (op == 2)
         {
-            cout << heap[0] << endl;
+            cout << -heap[0] << endl;
         }
         else if (op == 3)
         {
