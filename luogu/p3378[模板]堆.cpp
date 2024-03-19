@@ -7,10 +7,12 @@ vector<int> heap;
 void swap(int a, int b)
 {
     if (a == b) return;
-    heap[a] ^= heap[b] ^= heap[a];
+    int temp = heap[a];
+    heap[a] = heap[b];
+    heap[b] = temp;
 }
 
-void insert(int x)
+void push(int x)
 {
     heap.push_back(x);
     int idx = heap.size() - 1;
@@ -38,6 +40,12 @@ void pop()
     }
 }
 
+void show()
+{
+    for (int i = 0; i < heap.size(); i++) cout << heap[i] << " ";
+    cout << endl;
+}
+
 int main()
 {
     ios::sync_with_stdio(false);
@@ -54,7 +62,7 @@ int main()
         if (op == 1)
         {
             cin >> x;
-            insert(-x);
+            push(-x);
         }
         else if (op == 2)
         {
