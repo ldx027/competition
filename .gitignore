@@ -1,5 +1,5 @@
-*.exe
-*/.vscode/
-*/test.*
-*/*.exe
-test/*
+.exe
+.vscode
+.zip
+text*
+test/
