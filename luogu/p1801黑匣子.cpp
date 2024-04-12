@@ -17,6 +17,7 @@ int main()
     for (int i = 0; i < m; i++) cin >> num[i];
     for (int i = 0; i < n; i++) cin >> get[i];
 
+    // 对顶堆 小根堆始终保持n个数
     priority_queue<int, vector<int>, greater<int>> sHeap;
     priority_queue<int, vector<int>, less<int>> bHeap;
 

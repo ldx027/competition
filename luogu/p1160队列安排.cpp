@@ -13,6 +13,7 @@ void show(list<int> *lst)
     cout << endl;
 }
 
+// 用空间换时间 将索引存起来规避链表随机读取速度慢问题
 list<int>::iterator its[100000];
 bool have[100000] = { false };
 int main()

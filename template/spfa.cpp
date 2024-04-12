@@ -50,8 +50,10 @@ bool spfa(int s)
             {
                 dis[edges[i].to] = dis[cur] = edges[i].w;
                 cnt[edges[i].to] = cnt[cur] + 1;
-                if (cnt[edges[i].to] == N) return false;
-                if (!vst[edges[i].to]) que.push(edges[i].to), vst[edges[i].to] = true;;
+                if (cnt[edges[i].to] == N)
+                    return false;
+                if (!vst[edges[i].to])
+                    que.push(edges[i].to), vst[edges[i].to] = true;
             }
         }
     }
@@ -65,7 +67,7 @@ int main()
 
     int N, M;
     int s, t;
-    cin >> N >> M >> s >> t;;
+    cin >> N >> M >> s >> t;
 
     Edge::head.resize(N + 1, 0);
     edges.resize(2 * M + 3);

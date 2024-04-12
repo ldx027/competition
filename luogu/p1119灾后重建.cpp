@@ -7,6 +7,7 @@ using namespace std;
 vector<int> build;
 vector<vector<int>> mp;
 
+// 将该步骤单独提取出来
 void updata(int k, int n)
 {
     build[k] = -1;
@@ -48,6 +49,7 @@ int main()
         }
         for (int j = 0; j < N; j++)
         {
+            // if (build[j] - w <= 0)
             if (build[j] - w <= 0 && build[j] != -1)
                 updata(j, N);
         }

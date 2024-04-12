@@ -14,7 +14,7 @@ int main()
     int ans = 0;
     for (int i = 0; i < a.size() - 1; i++)
     {
-        for (int j = 0; j < a.size() - 1; j++)
+        for (int j = 0; j < b.size() - 1; j++)
         {
             if (b[j] == a[i + 1] && b[j + 1] == a[i])
             {

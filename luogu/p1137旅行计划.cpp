@@ -14,14 +14,14 @@ struct Edge
 int Edge::cnt = 1;
 vector<int> Edge::head;
 vector<Edge> edges;
-vector<int> rDegree;
+vector<int> inDeg;
 
 void addEdge(int u, int v)
 {
     edges[Edge::cnt].to = v;
     edges[Edge::cnt].next = Edge::head[u];
     Edge::head[u] = Edge::cnt++;
-    rDegree[v]++;
+    inDeg[v]++;
 }
 
 vector<int> dis;
@@ -31,7 +31,7 @@ bool kahn(int N)
     queue<int> que;
     for (int i = 1; i <= N; i++)
     {
-        if (rDegree[i] == 0)
+        if (inDeg[i] == 0)
         {
             que.push(i);
             dis[i] = 1;
@@ -45,12 +45,13 @@ bool kahn(int N)
 
         for (int i = Edge::head[cur]; i; i = edges[i].next)
         {
-            rDegree[edges[i].to]--;
-            if (rDegree[edges[i].to] == 0)
+            inDeg[edges[i].to]--;
+            if (inDeg[edges[i].to] == 0)
             {
                 que.push(edges[i].to);
-                dis[edges[i].to] = dis[cur] + 1;
+                // dis[edges[i].to] = dis[cur] + 1;
             }
+            dis[edges[i].to] = max(dis[edges[i].to], dis[cur] + 1);
         }
         Edge::head[cur] = 0;
     }
@@ -58,6 +59,7 @@ bool kahn(int N)
     for (int i = 1; i <= N; i++)
         if (Edge::head[i])
             return false;
+
     return true;
 }
 
@@ -72,7 +74,7 @@ int main()
 
     Edge::head.resize(N + 1, 0);
     edges.resize(M + 1);
-    rDegree.resize(N + 1, 0);
+    inDeg.resize(N + 1, 0);
     dis.resize(N + 1, 0);
 
     int u, v;

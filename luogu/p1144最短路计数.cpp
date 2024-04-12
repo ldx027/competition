@@ -13,12 +13,15 @@ struct Edge
     int to;
     int next;
 };
+
 vector<Edge> edges;
 int Edge::cnt = 1;
 vector<int> Edge::head;
+
 vector<bool> vst;
 vector<int> dis;
 vector<int> ans;
+
 priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> heap;
 
 void addEdge(int u, int v)
@@ -57,8 +60,11 @@ int main()
     {
         int cur = heap.top().second;
         heap.pop();
-        if (vst[cur]) continue;
+
+        if (vst[cur])
+            continue;
         vst[cur] = 1;
+
         for (int i = Edge::head[cur]; i; i = edges[i].next)
         {
             if (dis[edges[i].to] > dis[cur] + 1)
@@ -67,6 +73,8 @@ int main()
                 ans[edges[i].to] = ans[cur];
                 heap.push({dis[edges[i].to], edges[i].to});
             }
+
+            // dont forget this step
             else if (dis[edges[i].to] == dis[cur] + 1)
             {
                 ans[edges[i].to] += ans[cur];
@@ -79,6 +87,6 @@ int main()
     {
         cout << ans[i] << endl;
     }
-    
+
     return 0;
 }

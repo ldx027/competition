@@ -12,7 +12,7 @@ int main()
     long long ans = 0;
     for (int i = 0; i < N; i++)
     {
-        scanf("%d", &x);
+        cin >> x;
         if (st.empty())
             ans += x;
         else
