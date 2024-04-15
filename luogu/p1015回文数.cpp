@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
 
 bool huiwen(vector<int> vec)
@@ -17,14 +18,16 @@ int main()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    int N, M;
+    string M;
+    int N;
     cin >> N >> M;
 
-    vector<int> vec;
-    while (M)
+    vector<int> vec(M.size());
+    for (int i = 0; i < vec.size(); i++)
     {
-        vec.push_back(M % 10);
-        M /= 10;
+        vec[i] = M[M.size() - 1 - i];
+        if (vec[i] >= '0' && vec[i] <= '9') vec[i] -= '0';
+        else if (vec[i] >= 'A' && vec[i] <= 'Z') vec[i] -= 'A' - 10;
     }
 
     for (int i = 0; i <= 30; i++)

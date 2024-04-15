@@ -1,5 +1,5 @@
 #include <iostream>
-#include <unordered_set>
+#include <vector>
 using namespace std;
 
 int main()
@@ -8,26 +8,29 @@ int main()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    int N;
-    cin >> N;
+    int n;
+    cin >> n;
 
-    unordered_set<int> st;
+    vector<int> vec(n);
+    vector<bool> est(2e4 + 3, false);
+    vector<int> have(2e4 + 3, false);
 
     int x;
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < n; i++)
     {
         cin >> x;
-        st.insert(x);
+        for (int j = 0; j < i; j++)
+        {
+            have[x + vec[j]] = true;
+        }
+        vec[i] = x;
+        est[x] = true;
     }
 
     int cnt = 0;
-    for (auto it1 = st.begin(); it1 != st.end(); it1++)
+    for (int i = 0; i < 2e4 + 3; i++)
     {
-        for (auto it2 = it1; it2 != st.end(); it2++)
-        {
-            
-            cnt += st.count(*it1 + *it2);
-        }
+        if (est[i] && have[i]) cnt++;
     }
 
     cout << cnt << endl;
