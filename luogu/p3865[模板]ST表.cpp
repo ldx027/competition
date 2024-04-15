@@ -2,37 +2,42 @@
 #include <vector>
 using namespace std;
 
-int n, m, x, y;
 vector<int> lg;
 vector<vector<int>> vec;
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+    int n, m;
+    cin >> n >> m;
 
     lg.resize(n + 1);
-    lg[1] = 0;
-    vec.resize(n + 1, vector<int>(20, 0));
+    vec.resize(n + 1, vector<int>(20));
 
-    cin >> n >> m;
-    for (int i = 2; i <= n; i++) lg[i] = lg[i >> 1] + 1;
-    for (int i = 1; i <= n; i++) cin >> vec[i][0];
-    for (int i = 1; i <= lg[n]; i++)
+    lg[1] = 0;
+    for (int i = 2; i <= n; i++)
+        lg[i] = lg[i >> 1] + 1;
+
+    for (int i = 1; i  <= n; i++)
     {
-        for (int j = 1; j <= n - (1 << i) + 1; j++)
+        cout << i << " " << lg[i] << endl;
+    }
+
+    for (int i = 1; i <= n; i++)
+        cin >> vec[i][0];
+
+    for (int j = 1; j <= lg[n]; j++)
+    {
+        for (int i = 1; i <= n - (1 << j) + 1; i++)
         {
-            vec[j][i] = max(vec[j][i - 1], vec[j + (1 << i - 1)][i - 1]);
+            vec[i][j] = max(vec[i][j - 1], vec[i + (1 << (j - 1))][j - 1]);
         }
     }
 
+    int x, y;
     for (int i = 1; i <= m; i++)
     {
         cin >> x >> y;
         int l = lg[y - x + 1];
-        cout << max()
+        cout << max(vec[x][l], vec[y - (1 << l) + 1][l]) << endl;
     }
-
-    return 0;
 }
