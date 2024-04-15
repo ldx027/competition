@@ -1,6 +1,4 @@
 #include <iostream>
-#include <string>
-#include <algorithm>
 using namespace std;
 
 int main()
@@ -9,11 +7,28 @@ int main()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    string str;
-    cin >> str;
-    transform(str.begin(), str.end(), str.begin(), ::toupper);
+    int cur = 0;
+    int store = 0;
 
-    cout << str;
+    int x;
+    for (int i = 1; i <= 12; i++)
+    {
+        cur += 300;
+
+        cin >> x;
+        cur -= x;        
+
+        if (cur < 0)
+        {
+            cout << -i;
+            return 0;
+        }
+
+        store += cur / 100 * 100;
+        cur %= 100;
+    }
+
+    cout << int(store * 1.2) + cur << endl;
 
     return 0;
 }
