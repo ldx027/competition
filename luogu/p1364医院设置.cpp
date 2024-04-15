@@ -24,27 +24,27 @@ void addEdge(int u, int v)
 
 vector<int> vec;
 vector<int> dis;
-vector<int> siz;
+vector<int> size;
 
-void dfs(int u, int fa, int dep)
+void dfs(int u = 1, int fa = 0, int dep = 0)
 {
-    siz[u] = vec[u];
+    size[u] = vec[u];
     for (int i = Edge::head[u]; i; i = edges[i].next)
     {
         if (edges[i].to == fa) continue;
         dfs(edges[i].to, u, dep + 1);
-        siz[u] += siz[edges[i].to];
+        size[u] += size[edges[i].to];
     }
     dis[1] += vec[u] * dep;
 }
 
 int ans = inf;
-void dp(int u, int fa)
+void dp(int u = 1, int fa = 0)
 {
     for (int i = Edge::head[u]; i; i = edges[i].next)
     {
         if (edges[i].to == fa) continue;
-        dis[edges[i].to] = dis[u] + siz[1] - siz[edges[i].to] * 2;
+        dis[edges[i].to] = dis[u] + size[1] - size[edges[i].to] * 2;
         dp(edges[i].to, u);
     }
     ans = min(ans, dis[u]);
@@ -60,7 +60,7 @@ int main()
     cin >> N;
     vec.resize(N + 1);
     dis.resize(N + 1);
-    siz.resize(N + 1);
+    size.resize(N + 1);
     Edge::head.resize(N + 1);
     edges.resize(N * N + 3);
 
@@ -80,8 +80,8 @@ int main()
         }
     }
 
-    dfs(1, 0, 0);
-    dp(1, 0);
+    dfs();
+    dp();
 
     cout << ans << endl;
 
