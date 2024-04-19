@@ -16,12 +16,7 @@ int main()
     int a, b;
     while (cin >> a >> b)
     {
-        if (b > a)
-        {
-            int temp = a;
-            a = b;
-            b = temp;
-        }
+        a ^= b ^= a ^= b;
         cout << a * b / gcd(a, b) << endl;
     }
 

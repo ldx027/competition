@@ -8,9 +8,6 @@ bool isP(int x)
         return false;
     if (x == 2 || x == 3)
         return true;
-    int n = x % 6;
-    if (n % 2 == 0 || n == 3)
-        return false;
 
     for (int i = 2; i <= sqrt(x); i++)
         if (x % i == 0)

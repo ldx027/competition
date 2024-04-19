@@ -3,6 +3,7 @@
 using namespace std;
 
 vector<int> dis;
+
 int main()
 {
     ios::sync_with_stdio(false);
