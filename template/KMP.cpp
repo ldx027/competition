@@ -41,12 +41,5 @@ int main()
 
     kmp(str1, str2);
 
-    for (int i = 1; i <= str2.size(); i++)
-    {
-        string str = str2.substr(0, i);
-        vector<int> pi = profix(str);
-        cout << *pi.rbegin() << " ";
-    }
-
     return 0;
 }
