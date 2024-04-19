@@ -71,19 +71,12 @@ int main()
     while (N--)
     {
         cin >> cmd;
-        if (cmd == "Push")
-        {
-            cin >> x;
+        if (cmd == "Push" && cin >> x)
             Push(x);
-        }
         else if (cmd == "PeekMedian")
-        {
             Mid();
-        }
         else if (cmd == "Pop")
-        {
             Pop();
-        }
     }
 
     return 0;

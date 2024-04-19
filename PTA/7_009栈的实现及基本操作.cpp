@@ -13,6 +13,7 @@ int main()
     cin >> n;
 
     int cmd, d;
+
     while (n--)
     {
         cin >> cmd;
