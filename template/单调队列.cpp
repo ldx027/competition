@@ -18,9 +18,9 @@ int main()
     {
         cin >> x;
         while (que.size() && que.front().second <= i - k) que.pop_front();
+        if (i >= k - 1) cout << que.front().first << " ";
         while (que.size() && que.back().first < x) que.pop_back();
         que.push_back({x, i});
-        if (i >= k - 1) cout << que.front().first << " ";
     }
 
     return 0;

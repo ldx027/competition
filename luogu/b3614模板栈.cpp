@@ -1,49 +1,9 @@
 #include <iostream>
 #include <string>
-#include <vector>
+#include <stack>
 using namespace std;
 
-template <typename T>
-class Stack
-{
-private:
-    vector<T> vec;
-    int curIdx;
-
-public:
-    Stack()
-    {
-        vec.resize(100010);
-        this->curIdx = 0;
-    }
-    void push(T x)
-    {
-        // cout << x << endl;
-        this->vec[curIdx++] = x;
-    }
-    void pop()
-    {
-        if (curIdx == 0)
-        {
-            cout << "Empty" << endl;
-            return;
-        }
-        curIdx--;
-    }
-    void query()
-    {
-        if (curIdx == 0)
-        {
-            cout << "Anguei!" << endl;
-            return;
-        }
-        cout << vec[curIdx - 1] << endl;
-    }
-    void size()
-    {
-        cout << this->curIdx << endl;
-    }
-};
+typedef long long ll;
 
 int main()
 {
@@ -51,27 +11,47 @@ int main()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    long long T, n, x;
-    string cmd;
+    ll T;
     cin >> T;
-    for (int i = 0; i < T; i++)
+
+    while (T--)
     {
-        Stack<long long> *stk = new Stack<long long>;
+        stack<ll> stk;
+
+        ll n, x;
+        string cmd;
+
         cin >> n;
-        for (int j = 0; j < n; j++)
+        while (n--)
         {
             cin >> cmd;
             if (cmd == "push")
             {
                 cin >> x;
-                stk->push(x);
+                stk.push(x);
             }
             else if (cmd == "pop")
-                stk->pop();
+            {
+                if (stk.empty())
+                {
+                    cout << "Empty" << endl;
+                }
+                else
+                    stk.pop();
+            }
             else if (cmd == "query")
-                stk->query();
+            {
+                if (stk.empty())
+                {
+                    cout << "Anguei!" << endl;
+                }
+                else
+                    cout << stk.top() << endl;
+            }
             else if (cmd == "size")
-                stk->size();
+            {
+                cout << stk.size() << endl;
+            }
         }
     }
 
