@@ -18,7 +18,6 @@ struct Edge
 int Edge::cnt = 1;
 vector<int> Edge::head;
 vector<Edge> edges;
-vector<bool> vst;
 
 vector<int> dis;
 
@@ -39,9 +38,7 @@ void dijkstra(int s)
     while (!heap.empty())
     {
         int cur = heap.top().second;
-        heap.pop();
-        if (vst[cur]) continue;
-        vst[cur] = true;
+       heap.pop();
 
         for (int i = Edge::head[cur]; i; i = edges[i].next)
         {
@@ -66,7 +63,6 @@ int main()
     Edge::head.resize(N + 1, 0);
     edges.resize(2 * M + 3);
     dis.resize(N + 1, inf);
-    vst.resize(N + 1, false);
 
     int u, v, w;
     for (int i = 0; i < M; i++)
