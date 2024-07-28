@@ -2,7 +2,7 @@
 #include <cmath>
 using namespace std;
 
-int a, b, c, d;
+double a, b, c, d;
 
 double func(double);
 void bin(double l, double r)
