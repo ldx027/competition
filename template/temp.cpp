@@ -2,19 +2,12 @@
 #include <vector>
 using namespace std;
 
-#define ll long long
-
-struct Node
-{
-    ll parent = 0;
-    int tier = 1;
-};
-
 struct Edge
 {
     static int cnt;
     static vector<int> head;
     int to;
+    int w;
     int next;
 };
 
@@ -22,11 +15,10 @@ int Edge::cnt = 1;
 vector<int> Edge::head;
 vector<Edge> edges;
 
-vector<Node> tree;
-vector<ll> width;
-ll height = 0;
-
-void addEdge(int u, int v)
+void addEdge(int u, int v, int w)
 {
-
+    edges[Edge::cnt].next = v;
+    edges[Edge::cnt].w = w;
+    edges[Edge::cnt].next = Edge::head[u];
+    Edge::head[u] = Edge::cnt++;
 }

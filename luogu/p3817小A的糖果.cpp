@@ -6,31 +6,42 @@ using namespace std;
 
 int main()
 {
-    int n, x;
+    ll n, x;
     cin >> n >> x;
 
     vector<ll> vec(n);
+    for (int i = 0; i < n; i++)
+        cin >> vec[i];
 
-    for (int i = 0; i < n; i++) cin >> vec[i];
+    ll rst = 0;
 
-    ll ans = 0;
-
-    if (vec[n - 1] + vec[n - 2] > x)
+    if (vec[0] > x)
     {
-        ans += vec[n - 1] + vec[n - 2] - x;
-        vec[n - 2] = x - vec[n - 1];
+        rst += vec[0] - x;
+        vec[0] = x;
     }
 
-    for (int i = 1; i < n - 1; i++)
+    if (vec[n - 1] > x)
+    {
+        rst += vec[n - 1] - x;
+        vec[n - 1] = x;
+    }
+
+    for (int i = 1; i <= n / 2; i++)
     {
         if (vec[i] + vec[i - 1] > x)
         {
-            ans += vec[i] + vec[i - 1] - x;
+            rst += vec[i] - x + vec[i - 1];
             vec[i] = x - vec[i - 1];
+        }
+        if (vec[n - 1 - i] + vec[n - i] > x)
+        {
+            rst += vec[n - 1 - i] - x + vec[n - i];
+            vec[n - 1 - i] = x - vec[n - i];
         }
     }
 
-    cout << ans << endl;
+    cout << rst << endl;
 
     return 0;
 }

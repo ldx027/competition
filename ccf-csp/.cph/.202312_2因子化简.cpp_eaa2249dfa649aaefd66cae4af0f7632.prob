@@ -1,0 +1,1 @@
+{"name":"Local: 202312_2因子化简","url":"e:\\competition\\ccf-csp\\202312_2因子化简.cpp","tests":[{"id":1725884730185,"input":"3\n2155895064 3\n2 2\n10000000000 10","output":"2238728\n1\n10000000000"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\ccf-csp\\202312_2因子化简.cpp","group":"local","local":true}

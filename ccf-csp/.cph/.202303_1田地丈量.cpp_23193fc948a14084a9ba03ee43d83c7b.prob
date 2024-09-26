@@ -1,0 +1,1 @@
+{"name":"Local: 202303_1田地丈量","url":"e:\\competition\\ccf-csp\\202303_1田地丈量.cpp","tests":[{"id":1726908156355,"input":"4 10 10\n0 0 5 5\n5 -2 15 3\n8 8 15 15\n-2 10 3 15","output":"44"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\ccf-csp\\202303_1田地丈量.cpp","group":"local","local":true}

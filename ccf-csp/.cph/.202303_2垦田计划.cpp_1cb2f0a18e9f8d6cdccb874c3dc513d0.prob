@@ -1,0 +1,1 @@
+{"name":"Local: 202303_2垦田计划","url":"e:\\competition\\ccf-csp\\202303_2垦田计划.cpp","tests":[{"id":1726970675936,"input":"4 9 2\n6 1\n5 1\n6 2\n7 1","output":"5"},{"id":1726970687924,"input":"4 30 2\n6 1\n5 1\n6 2\n7 1","output":"2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\ccf-csp\\202303_2垦田计划.cpp","group":"local","local":true}

@@ -1,28 +1,28 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
+
+#define ll long long
+#define ull unsigned ll
+#define inf 0x7f7f7f7f
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+    ull L, N;
+    cin >> L >> N;
 
-    int L, N, x;
-    cin >> L >> N >> x;
+    ull Min = 0, Max = 0;
 
-    int _min = min(x, L + 1 - x);
-    int _max = max(x, L + 1 - x);
-
-    for (int i = 1; i < N; i++)
+    ull x;
+    for (ull i = 0; i < N; i++)
     {
         cin >> x;
-        _min = max(_min, min(x, L + 1 - x));
-        _max = max(_max, max(x, L + 1 - x));
+
+        Min = max(Min, min(x, L + 1 - x));
+        Max = max(Max, max(x, L + 1 - x));
     }
 
-    cout << _min << " " << _max;
+    cout << Min << " " << Max << endl;
 
     return 0;
 }

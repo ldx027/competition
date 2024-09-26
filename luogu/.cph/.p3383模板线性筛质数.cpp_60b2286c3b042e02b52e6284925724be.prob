@@ -1,0 +1,1 @@
+{"name":"Local: p3383模板线性筛质数","url":"e:\\competition\\luogu\\p3383模板线性筛质数.cpp","tests":[{"id":1726033987275,"input":"100 5\n1\n2\n3\n4\n5","output":"2\n3\n5\n7\n11"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p3383模板线性筛质数.cpp","group":"local","local":true}

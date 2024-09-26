@@ -1,0 +1,1 @@
+{"name":"Local: 202309_01坐标变换(其一)","url":"e:\\competition\\ccf-csp\\202309_01坐标变换(其一).cpp","tests":[{"id":1726638830896,"input":"3 2\n10 10\n0 0\n10 -20\n1 -1\n0 0","output":"21 -11\n20 -10"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\ccf-csp\\202309_01坐标变换(其一).cpp","group":"local","local":true}

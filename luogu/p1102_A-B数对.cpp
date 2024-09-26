@@ -1,35 +1,39 @@
 #include <iostream>
-#include <vector>
+#include <map>
 #include <algorithm>
 using namespace std;
 
-#define ll long long
-
-vector<ll> vec;
+#define ull unsigned long long
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-
-    int N, C;
+    ull N, C;
     cin >> N >> C;
 
-    vec.resize(N);
-    for (int i = 0; i < N; i++) cin >> vec[i];
-    sort(vec.begin(), vec.end());
+    map<ull, ull> arr;
 
-    ll ans = 0;
+    ull x;
     for (int i = 0; i < N; i++)
     {
-        auto lower = lower_bound(vec.begin(), vec.end(), vec[i] - C);
-        auto upper = upper_bound(lower, vec.end(), vec[i] - C);
-        if (lower != vec.end())
-            ans += upper - lower;
+        cin >> x;
+        arr[x]++;
     }
 
-    cout << ans << endl;
+    auto it1 = arr.begin(), it2 = arr.begin();
+    it2++;
+
+    ull cnt = 0;
+    while (it2 != arr.end())
+    {
+        if (it2->first - it1->first > C)
+            it1++;
+        else if (it2->first - it1->first == C)
+            cnt += it2->second * it1->second, it2++;
+        else
+            it2++;
+    }
+
+    cout << cnt << endl;
 
     return 0;
 }

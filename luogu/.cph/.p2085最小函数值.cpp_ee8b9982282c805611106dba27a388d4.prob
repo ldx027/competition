@@ -1,0 +1,1 @@
+{"name":"Local: p2085最小函数值","url":"e:\\competition\\luogu\\p2085最小函数值.cpp","tests":[{"id":1725367082202,"input":"3 10\n4 5 3\n3 4 5\n1 7 1","output":"9 12 12 19 25 29 31 44 45 54"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p2085最小函数值.cpp","group":"local","local":true}

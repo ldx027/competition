@@ -1,0 +1,1 @@
+{"name":"Local: 202212_1现值计算","url":"e:\\competition\\ccf-csp\\202212_1现值计算.cpp","tests":[{"id":1726976347701,"input":"2 0.05\n-200 100 100","output":"-14.059"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\ccf-csp\\202212_1现值计算.cpp","group":"local","local":true}
