@@ -1,0 +1,1 @@
+{"name":"Local: p1419寻找段落","url":"e:\\competition\\luogu\\p1419寻找段落.cpp","tests":[{"id":1727437509566,"input":"3\n2 2\n3\n-1\n2","output":"1.000"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p1419寻找段落.cpp","group":"local","local":true}
