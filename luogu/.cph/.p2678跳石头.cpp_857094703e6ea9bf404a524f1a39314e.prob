@@ -1,0 +1,1 @@
+{"name":"Local: p2678跳石头","url":"e:\\competition\\luogu\\p2678跳石头.cpp","tests":[{"id":1727868361889,"input":"25 5 2 \n2\n11\n14\n17 \n21","output":"4"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p2678跳石头.cpp","group":"local","local":true}
