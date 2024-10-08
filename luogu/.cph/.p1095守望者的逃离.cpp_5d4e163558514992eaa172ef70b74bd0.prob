@@ -1,0 +1,1 @@
+{"name":"Local: p1095守望者的逃离","url":"e:\\competition\\luogu\\p1095守望者的逃离.cpp","tests":[{"id":1728304392260,"input":"39 200 4","output":"No\n197"},{"id":1728304409541,"input":"36 255 10","output":"Yes\n6"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p1095守望者的逃离.cpp","group":"local","local":true}

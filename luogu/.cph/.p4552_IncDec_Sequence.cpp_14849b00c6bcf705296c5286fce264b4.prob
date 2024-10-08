@@ -1,0 +1,1 @@
+{"name":"Local: p4552_IncDec_Sequence","url":"e:\\competition\\luogu\\p4552_IncDec_Sequence.cpp","tests":[{"id":1728389392994,"input":"4\n1\n1\n2\n2","output":"1\n2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p4552_IncDec_Sequence.cpp","group":"local","local":true}

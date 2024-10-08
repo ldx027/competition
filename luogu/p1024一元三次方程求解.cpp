@@ -2,42 +2,37 @@
 #include <cmath>
 using namespace std;
 
+const double eps = 1e-3;
+
 double a, b, c, d;
 
-double func(double x)
+inline double func(double x)
 {
     return a * pow(x, 3) + b * pow(x, 2) + c * x + d;
 }
 
-int cnt = 0;
-void query(double l, double r)
+void check(double l, double r)
 {
-    if (cnt >= 3)
-        return;
-
-    if (r - l < 1e-3)
-        return;
-
-    if (fabs(func(l)) < 1e-6)
+    if (fabs(func(l)) < eps)
     {
         printf("%.2f ", l);
-        cnt++;
         return;
     }
 
-    if (func(l) * func(r) < 0) 
-    {
-        double m = (l + r) / 2;
-        query(l, m);
-        query(m, r);
-    }
+    if (fabs(func(r)) < eps || func(l) * func(r) > 0)
+        return;
+    
+    double mid = (l + r) / 2.0;
+    check(l, mid);
+    check(mid, r);
 }
 
 int main()
 {
     cin >> a >> b >> c >> d;
+
     for (int i = -100; i < 100; i++)
-        query(i, i + 1);
+        check(i, i + 1);
     
     return 0;
 }
