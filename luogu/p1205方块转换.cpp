@@ -6,6 +6,11 @@ int n;
 vector<vector<bool>> vec1;
 vector<vector<bool>> vec2;
 
+bool func1()
+{
+    for (int i = 0; i < )
+}
+
 int main()
 {
     cin >> n;

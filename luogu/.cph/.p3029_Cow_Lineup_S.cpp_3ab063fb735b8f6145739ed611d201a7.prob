@@ -1,0 +1,1 @@
+{"name":"Local: p3029_Cow_Lineup_S","url":"e:\\competition\\luogu\\p3029_Cow_Lineup_S.cpp","tests":[{"id":1728437407607,"input":"6 \n25 7 \n26 1 \n15 1 \n22 3 \n20 1 \n30 1 ","output":"4"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p3029_Cow_Lineup_S.cpp","group":"local","local":true}

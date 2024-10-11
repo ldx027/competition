@@ -7,7 +7,7 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int N = 100;
+    int N = 10000;
 
     vector<bool> isPrime(N + 1, true);
     vector<int> primes;
