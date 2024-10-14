@@ -6,77 +6,81 @@ using namespace std;
 
 #define ll long long
 #define inf 0x7f7f7f7f
+// #define debug
 
 ll n, d, k;
-vector<ll> dis;
-vector<ll> score;
+vector<ll> dis, score;
 
-ll bin(ll l, ll r)
+bool check(ll mid)
 {
-    if (l > r)
-        return inf;
-
-    ll mid = l + ((r - l) >> 1);
-    // cout << "mid" << mid << endl;
-
-    vector<ll> dp(n, -inf);
     deque<pair<ll, ll>> que;
+    vector<ll> dp(n, -inf);
+
     ll cur = 0;
-
-    ll Max = -inf;
-    for (ll i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        if (dis[i] >= d - mid && dis[i] <= mid + d)
-            dp[i] = score[i];
-
-        /* 找max（0, i - d -g）到 min(i - 1, g - d + i)项最大值
-        for (int j = 0; j < i; j++)
-            if (dis[j] >= dis[i] - d - mid && dis[j] <= min(dis[i] - 1, mid - d + dis[i]))
-                dp[i] = max(dp[i], dp[j] + score[i]);
-        */
-        while (dis[cur] <= min(dis[i] - 1, dis[i] - d + mid))
+        while (cur < i && dis[cur] <= min(dis[i] - d + mid, dis[i] - 1))
         {
-            while (!que.empty() && que.back().second <= dp[cur])
+            if (dp[cur] == -inf)
+            {
+                cur++;
+                continue;
+            }
+
+            while (!que.empty() && que.back().first <= dp[cur])
                 que.pop_back();
-            que.push_back({dis[cur], dp[cur++]});
+            que.push_back({dp[cur], cur});
+            cur++;
         }
-        while (!que.empty() && que.front().first < dis[i] - d - mid)
+        while (!que.empty() && dis[que.front().second] < dis[i] - d - mid)
             que.pop_front();
 
+        if (d - mid <= dis[i] && dis[i] <= d + mid)
+            dp[i] = score[i];
         if (!que.empty())
-            dp[i] = max(dp[i], que.front().second + score[i]);
-        Max = max(Max, dp[i]);
-        if (Max >= k)
-            break;
-    }
-    // for (int j = 0; j < n; j++)
-    //     cout << dp[j] << " ";
-    // cout << endl;
+            dp[i] = max(dp[i], que.front().first + score[i]);
 
-    if (Max >= k)
-        return min(bin(l, mid - 1), mid);
-    else
-        return bin(mid + 1, r);
+#ifdef debug
+        cout << i << " " << dp[i] << endl;
+#endif
+        if (dp[i] >= k)
+            return true;
+    }
+
+    return false;
 }
 
 int main()
 {
     cin >> n >> d >> k;
+
     dis.resize(n);
     score.resize(n);
 
-    ll total = 0;
-    for (int i = 0; i < n; i++)
-        cin >> dis[i] >> score[i], total += max(score[i], (ll)0);
+    for (ll i = 0; i < n; i++)
+        cin >> dis[i] >> score[i];
 
-    // 不足特判
-    if (total < k)
+    // cout << "over" << endl;
+
+    ll ans = -1;
+    ll l = 0, r = dis[n - 1];
+
+    while (l <= r)
     {
-        cout << -1 << endl;
-        return 0;
+        ll mid = l + ((r - l) >> 1);
+#ifdef debug
+        cout << l << " " << r << " " << mid << endl;
+#endif
+        if (check(mid))
+        {
+            ans = mid;
+            r = mid - 1;
+        }
+        else
+            l = mid + 1;
     }
 
-    cout << bin(0, dis[n - 1]);
+    cout << ans << endl;
 
     return 0;
 }

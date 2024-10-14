@@ -3,85 +3,82 @@
 #include <algorithm>
 using namespace std;
 
-#define ll int
+#define AA 17
 
-struct Soldier
-{
-    ll id, l, r; 
-};
-
+struct Soldier { int id, l, r; };
 bool cmp(Soldier a, Soldier b) { return a.l < b.l; }
 
-ll n, m;
-vector<Soldier> vec;
-vector<vector<ll>> go;
-vector<int> ans;
+int n, m;
+Soldier vec[400005];
+int st[400005][20];
+int ans[200005];
 
-void pre()
-{
-    for (ll i = 1; i <= 2 * n; i++)
-    {
-        ll to = i;
-        while (to <= 2 * n && vec[to].l <= vec[i].r)
-            to++;
-        go[i][0] = to - 1;
-    }
-
-    for (ll i = 1; i < 20; i++)
-        for (ll j = 1; j <= 2 * n; j++)
-            go[j][i] = go[go[j][i - 1]][i - 1];
-}
-
-void search(ll k)
-{
-    ll lmt = vec[k].l + m;
-    ll val = 2;
-    ll p = k;
-
-    for (ll i = 19; i >= 0; i--)
-    {
-        if (go[k][i] != 0 && vec[go[k][i]].r < lmt)
-        {
-            val += (1 << i);
-            k = go[k][i];
-        }
-    }
-
-    ans[vec[p].id] = val;
+int read() {
+  int x = 0, w = 1;
+  char ch = 0;
+  while (ch < '0' || ch > '9') {  // ch 不是数字时
+    if (ch == '-') w = -1;        // 判断是否为负
+    ch = getchar();               // 继续读入
+  }
+  while (ch >= '0' && ch <= '9') {  // ch 是数字时
+    x = x * 10 + (ch - '0');  // 将新读入的数字「加」在 x 的后面
+    // x 是 int 类型，char 类型的 ch 和 '0' 会被自动转为其对应的
+    // ASCII 码，相当于将 ch 转化为对应数字
+    // 此处也可以使用 (x<<3)+(x<<1) 的写法来代替 x*10
+    ch = getchar();  // 继续读入
+  }
+  return x * w;  // 数字 * 正负号 = 实际数值
 }
 
 int main()
 {
-    cin >> n >> m;
-    
-    vec.resize(2 * n + 1);
-    go.resize(2 * n + 1, vector<ll>(21, 0));
-    ans.resize(n + 1);
+    n = read(), m = read();
 
-    for (ll i = 1; i <= n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        vec[i].id = i;
-        cin >> vec[i].l >> vec[i].r;
+        vec[i].l = read(), vec[i].r = read();
         if (vec[i].r < vec[i].l)
             vec[i].r += m;
+        vec[i].id = i;
     }
+    sort(vec + 1, vec + n + 1, cmp);
 
-    sort(vec.begin() + 1, vec.begin() + n + 1, cmp);
-
-    for (ll i = 1; i <= n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        vec[i + n].id = vec[i].id;
         vec[i + n].l = vec[i].l + m;
         vec[i + n].r = vec[i].r + m;
+        vec[i + n].id = vec[i].id;
     }
 
-    pre();
+    for (int i = 1; i <= (n << 1); i++)
+    {
+        int tmp = i;
+        while (tmp <= (n << 1) && vec[tmp].l <= vec[i].r)
+            tmp++;
+        st[i][0] = tmp - 1;
+    }
+
+    for (int i = 1; i < AA; i++)
+        for (int j = 1; j <= (n << 1); j++)
+            st[j][i] = st[st[j][i - 1]][i - 1];
 
     for (int i = 1; i <= n; i++)
-        search(i);
-    
+    {
+        int lmt = vec[i].l + m;
+        int cur = i;
+
+        for (int j = AA - 1; j >= 0; j--)
+        {
+            if (st[cur][j] != 0 && vec[st[cur][j]].r < lmt)
+            {
+                ans[vec[i].id] += (1 << j);
+                cur = st[cur][j];
+            }
+        }
+    }
+
     for (int i = 1; i <= n; i++)
-        cout << ans[i]  << " ";
+        printf("%d ", ans[i] + 2);
 
     return 0;
 }

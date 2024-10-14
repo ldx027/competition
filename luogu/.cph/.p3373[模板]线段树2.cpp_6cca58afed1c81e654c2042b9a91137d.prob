@@ -1,0 +1,1 @@
+{"name":"Local: p3373[模板]线段树2","url":"e:\\competition\\luogu\\p3373[模板]线段树2.cpp","tests":[{"id":1728809619108,"input":"5 5 38\n1 5 4 2 3\n\n2 1 4 1\n3 2 5\n1 2 4 2\n2 3 5 5\n3 1 4","output":"17\n2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p3373[模板]线段树2.cpp","group":"local","local":true}
