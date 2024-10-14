@@ -2,60 +2,99 @@
 #include <vector>
 using namespace std;
 
-#define inf 0x3f3f3f3f
+#define ll long long
 
-vector<int> vec;
-vector<int> tree;
+vector<ll> vec, tree, tag;
 
-int func(int a, int b)
-{
-    // return max(a, b);
-    return a + b;
-}
-
-void build(int l, int r, int p = 1)
+void build(ll idx, ll l, ll r)
 {
     if (l == r)
     {
-        tree[p] = vec[l];
+        tree[idx] = vec[l];
         return;
     }
 
-    int mid = l + ((r - l) >> 1);
-    build(l, mid, p << 1);
-    build(mid + 1, r, p << 1 | 1);
-    tree[p] = func(tree[p << 1], tree[p << 1 | 1]);
-
+    ll mid = l + ((r - l) >> 1);
+    build(idx << 1, l, mid);
+    build(idx << 1 | 1, mid + 1, r);
+    tree[idx] = tree[idx << 1] + tree[idx << 1 | 1];
 }
 
-int query(int l, int r, int pl, int pr, int p = 1)
+void addTag(ll idx, ll l, ll r, ll val)
 {
-    if (pl >= l && pr <= r) return tree[p];
+    tag[idx] += val;
+    tree[idx] += (r - l + 1) * val;
+}
 
-    int rst = 0;
-    int mid = pl + ((pr - pl) >> 1);
-    if (mid >= l) rst = func(rst, query(l, r, pl, mid, p << 1));
-    if (mid < r) rst = func(rst, query(l, r, mid + 1, pr, p << 1 | 1));
+void pushDown(ll idx, ll l, ll r)
+{
+    if (!tag[idx]) return;
+    ll mid = l + ((r - l) >> 1);
+    addTag(idx << 1, l, mid, tag[idx]);
+    addTag(idx << 1 | 1, mid + 1, r, tag[idx]);
+    tag[idx] = 0;
+}
 
+void update(ll l, ll r, ll idx, ll pl, ll pr, ll val)
+{
+    if (l <= pl && pr <= r)
+    {
+        addTag(idx, pl, pr, val);
+        return;
+    }
+
+    pushDown(idx, pl, pr);
+    ll mid = pl + ((pr - pl) >> 1);
+    if (l <= mid)
+        update(l, r, idx << 1, pl, mid, val);
+    if (mid < r)
+        update(l, r, idx << 1 | 1, mid + 1, pr, val);
+    tree[idx] = tree[idx << 1] + tree[idx << 1 | 1];
+}
+
+ll query(ll l, ll r, ll idx, ll pl, ll pr)
+{
+    if (l <= pl && pr <= r)
+        return tree[idx];
+
+    pushDown(idx, pl, pr);
+    ll rst = 0;
+    ll mid = pl + ((pr - pl) >> 1);
+    if (mid >= l)
+        rst += query(l, r, idx << 1, pl, mid);
+    if (mid < r)
+        rst += query(l, r, idx << 1 | 1, mid + 1, pr);
     return rst;
 }
 
 int main()
 {
-    int n, m;
+    ll n, m;
     cin >> n >> m;
-    vec.resize(n);
-    tree.resize(4 * n);
 
-    for (int i = 0; i < n; i++) cin >> vec[i];
+    vec.resize(n + 1, 0);
+    tree.resize(n << 2, 0);
+    tag.resize(n << 2, 0);
 
-    build(0, n - 1);
+    for (ll i = 1; i <= n; i++)
+        cin >> vec[i];
+    build(1, 1, n);
 
-    int l, r;
-    for (int i = 0; i < m; i++)
+    ll op, x, y, k;
+    while (m--)
     {
-        cin >> l >> r;
-        cout << query(l, r, 0, n - 1);
+        cin >> op;
+
+        if (op == 1)
+        {
+            cin >> x >> y >> k;
+            update(x, y, 1, 1, n, k);
+        }
+        else if (op == 2)
+        {
+            cin >> x >> y;
+            cout << query(x, y, 1, 1, n) << endl;
+        }
     }
 
     return 0;

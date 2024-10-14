@@ -6,7 +6,7 @@ vector<int> frd;
 
 int findFrd(int u)
 {
-    return frd[u] == 0 ? u : findFrd(frd[u]);
+    return frd[u] == 0 ? u : frd[u] = findFrd(frd[u]);
 }
 
 void mkFrd(int u, int v)
