@@ -1,0 +1,1 @@
+{"name":"Local: p3865[模板]ST表","url":"e:\\competition\\luogu\\p3865[模板]ST表.cpp","tests":[{"id":1728901329511,"input":"8 8\n9 3 1 7 5 6 0 8\n1 6\n1 5\n2 7\n2 6\n1 8\n4 8\n3 7\n1 8","output":"9\n9\n7\n7\n9\n8\n7\n9"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p3865[模板]ST表.cpp","group":"local","local":true}

@@ -1,41 +1,56 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
 using namespace std;
+
+#define up(l, r, i) for (int i = l, END##i = r; i <= END##i; ++i)
+#define dn(r, l, i) for (int i = r, END##i = l; i >= END##i; --i)
+
+typedef long long i64;
+
+const int INF = 2147483647;
+const int MAXN = 1e5 + 3;
+
+int n, t, H[MAXN], F[MAXN];
 
 int main()
 {
-    int x;
-    vector<int> vec;
-    while (cin >> x)
-        vec.push_back(x);
-    
-    vector<int> dp(vec.size(), 1);
-    for (int i = 1; i < dp.size(); i++)
-        for (int j = 0; j < i; j++)
-            if (vec[j] >= vec[i])
-                dp[i] = max(dp[i], dp[j] + 1);
-    
-    cout << *max_element(dp.begin(), dp.end()) << endl;
-
-    vector<int> sys;
-    for (int i = 0; i < vec.size(); i++)
+    while (~scanf("%d", &H[++n]))
+        ;
+    --n;
+    t = 0, memset(F, 0, sizeof(F)), F[0] = INF;
+    up(1, n, i)
     {
-        bool flg = false;
-        for (int j = 0; j < sys.size(); j++)
+        int l = 0, r = t + 1;
+        while (r - l > 1)
         {
-            if (sys[j] >= vec[i])
-            {
-                sys[j] = vec[i];
-                flg = true;
-                break;
-            }
+            int m = l + (r - l) / 2;
+            if (F[m] >= H[i])
+                l = m;
+            else
+                r = m;
         }
-        if (!flg)
-            sys.push_back(vec[i]);
+        int x = l + 1; // dp[i]
+        if (x > t)
+            t = x;
+        F[x] = H[i];
     }
-
-    cout << sys.size() << endl;
-
+    printf("%d\n", t);
+    t = 0, memset(F, 0, sizeof(F)), F[0] = 0;
+    up(1, n, i)
+    {
+        int l = 0, r = t + 1;
+        while (r - l > 1)
+        {
+            int m = l + (r - l) / 2;
+            if (F[m] < H[i])
+                l = m;
+            else
+                r = m;
+        }
+        int x = l + 1;
+        if (x > t)
+            t = x;
+        F[x] = H[i];
+    }
+    printf("%d\n", t);
     return 0;
 }

@@ -1,0 +1,1 @@
+{"name":"Local: p2652同花顺","url":"e:\\competition\\luogu\\p2652同花顺.cpp","tests":[{"id":1728905805559,"input":"5\n1 1\n1 2\n1 3\n1 4\n1 5","output":"0"},{"id":1728905875485,"input":"5\n1 9\n1 10\n2 11\n2 12\n2 13","output":"2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p2652同花顺.cpp","group":"local","local":true}

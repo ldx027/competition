@@ -2,42 +2,44 @@
 #include <vector>
 using namespace std;
 
-vector<int> lg;
-vector<vector<int>> vec;
+#define JD 16 
+const int maxN = 1e5 + 7;
+
+int LOG[maxN];
+int st[maxN][JD + 1];
+
+inline int read()
+{
+	int x=0,f=1;char ch=getchar();
+	while (ch<'0'||ch>'9'){if (ch=='-') f=-1;ch=getchar();}
+	while (ch>='0'&&ch<='9'){x=x*10+ch-48;ch=getchar();}
+	return x*f;
+}
 
 int main()
 {
     int n, m;
-    cin >> n >> m;
+    n = read(), m = read();
 
-    lg.resize(n + 1);
-    vec.resize(n + 1, vector<int>(20));
+    LOG[0] = -1;
+    for (register int i = 1; i <= n + 1; i++)
+        LOG[i] = LOG[i >> 1] + 1;
 
-    lg[1] = 0;
-    for (int i = 2; i <= n; i++)
-        lg[i] = lg[i >> 1] + 1;
+    for (register int i = 1; i <= n; i++)
+        st[i][0] = read();
 
-    for (int i = 1; i  <= n; i++)
+    for (register int i = 1; i <= JD; i++)
+        for (register int j = 1; j + (1 << (i - 1)) <= n; j++)
+            st[j][i] = max(st[j][i - 1], st[j + (1 << (i - 1))][i - 1]);
+
+    int l, r;
+    while (m--)
     {
-        cout << i << " " << lg[i] << endl;
+        l = read(), r = read();
+
+        int k = LOG[r - l + 1];
+        printf("%d\n", max(st[l][k], st[r - (1 << k) + 1][k]));
     }
 
-    for (int i = 1; i <= n; i++)
-        cin >> vec[i][0];
-
-    for (int j = 1; j <= lg[n]; j++)
-    {
-        for (int i = 1; i <= n - (1 << j) + 1; i++)
-        {
-            vec[i][j] = max(vec[i][j - 1], vec[i + (1 << (j - 1))][j - 1]);
-        }
-    }
-
-    int x, y;
-    for (int i = 1; i <= m; i++)
-    {
-        cin >> x >> y;
-        int l = lg[y - x + 1];
-        cout << max(vec[x][l], vec[y - (1 << l) + 1][l]) << endl;
-    }
+    return 0;
 }

@@ -1,14 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <unordered_set>
-#include <utility>
+#include <stack>
 using namespace std;
 
-vector<pair<int, int>> road;
-vector<int> vec;
 vector<int> frd;
 
-int findFrd(int u) { return frd[u] == u ? u : frd[u] = findFrd(frd[u]); }
+int findFrd(int u) { return frd[u] != u ? frd[u] = findFrd(frd[u]) : u; }
 bool isFrd(int u, int v) { return findFrd(u) == findFrd(v); }
 void mkFrd(int u, int v)
 {
@@ -18,36 +16,88 @@ void mkFrd(int u, int v)
         frd[u] = v;
 }
 
+struct Edge
+{
+    static int cnt;
+    static vector<int> head;
+    int to;
+    int next;
+};
+
+int Edge::cnt = 1;
+vector<int> Edge::head;
+vector<Edge> edges;
+
+void addEdge(int u, int v)
+{
+    edges[Edge::cnt].to = v;
+    edges[Edge::cnt].next = Edge::head[u];
+    Edge::head[u] = Edge::cnt++;
+}
+
+int n, m, k;
+vector<int> vec;
+unordered_set<int> st;
+
 int main()
 {
-    int n, m;
     cin >> n >> m;
 
     frd.resize(n);
     for (int i = 0; i < n; i++)
         frd[i] = i;
-    
-    road.resize(m);
-    for (int i = 0; i < m; i++)
-        cin >> road[i].first >> road[i].second;
-    
-    int k;
-    cin >> k;
 
+    Edge::head.resize(n, 0);
+    edges.resize(2 * m + 1);
+
+    int u, v;
+    for (int i = 0; i < m; i++)
+    {
+        cin >> u >> v;
+        addEdge(u, v);
+        addEdge(v, u);
+    }
+
+    cin >> k;
     vec.resize(k);
-    unordered_set<int> st;
     for (int i = 0; i < k; i++)
     {
-        cin >> vec[i];
-        st.insert(i);
+        cin >> u;
+        st.insert(u);
+        vec[i] = u;
     }
 
-    // --------
-
-    for (int i = 0; i < m; i++)
+    int frag = n - k;
+    for (int i = 0; i < n; i++)
     {
-        int a = road[i].first;
-        int b = road[i].second;
-        if (st.count(a) || st.count(b))
+        if (!st.count(i))
+            for (int j = Edge::head[i]; j; j = edges[j].next)
+                if (!st.count(edges[j].to) && !isFrd(i, edges[j].to))
+                    mkFrd(i, edges[j].to), frag--;
     }
+    
+    stack<int> ans;
+    ans.push(frag);
+
+    for (int i = k - 1; i >= 0; i--)
+    {
+        st.erase(vec[i]);
+        frag++;
+        for (int j = Edge::head[vec[i]]; j; j = edges[j].next)
+        {
+            if (!st.count(edges[j].to) && !isFrd(vec[i], edges[j].to))
+            {
+                mkFrd(vec[i], edges[j].to), frag--;
+            }
+        }
+        ans.push(frag);
+    }
+    
+    while (!ans.empty())
+    {
+        cout << ans.top() << endl;
+        ans.pop();
+    }
+
+    return 0;
 }

@@ -128,13 +128,30 @@ vector<string> change2suffix(string exp)
     return out;
 }
 
+vector<string> out;
 bool step()
-{return false;}
+{
+    int idx = -1;
+    for (int i = 0; i < out.size(); i++)
+    {
+        if (out[i] == "+" || out[i] == "-" || out[i] == "*" || out[i] == "/")
+            idx = i;
+    }
+
+    if (idx == -1)
+        return false;
+    
+    if (out[idx] == "+")
+    {
+        
+    }
+
+    return true;
+}
 
 int main()
 {
     string exp;
-    vector<string> out;
 
     getline(cin, exp);
 
