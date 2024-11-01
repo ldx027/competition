@@ -53,9 +53,7 @@ int main()
             cur++;
         }
         else
-        {
             cout << (t = query(max(cur - x, 1ll), cur, 1, 1, maxN)) << endl;
-        }
     }
 
     return 0;

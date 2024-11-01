@@ -4,7 +4,7 @@
 using namespace std;
 
 vector<vector<int>> trie;
-vector<bool> est;
+vector<bool> ext;
 vector<bool> repeat;
 int cnt = 1;
 
@@ -17,7 +17,7 @@ void insert(string name)
             trie[pos][name[i] - 'a'] = ++cnt;
         pos = trie[pos][name[i] - 'a'];
     }
-    est[pos] = true;
+    ext[pos] = true;
 }
 
 int find(string name)
@@ -30,7 +30,7 @@ int find(string name)
     }
     if (repeat[pos]) return 2;
     repeat[pos] = true;
-    return est[pos];
+    return ext[pos];
 }
 
 int main()
@@ -42,7 +42,7 @@ int main()
     int n;
     cin >> n;
     trie.resize(60 * n, vector<int>(26, 0));
-    est.resize(60 * n, false);
+    ext.resize(60 * n, false);
     repeat.resize(60 * n, false);
 
     string name;

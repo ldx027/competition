@@ -3,54 +3,47 @@
 #include <algorithm>
 using namespace std;
 
-struct Grass
+struct Gras
 {
     int l, r;
 };
-bool cmp(const Grass &a, const Grass &b) { return a.r < b.r; }
-
-vector<Grass> grs;
+bool cmp(const Gras &a, const Gras &b) { return a.r < b.r; }
+vector<Gras> gras;
 vector<int> dp;
-
-int n;
 
 int main()
 {
+    int n;
     cin >> n;
 
-    dp.resize(n);
-    grs.resize(n);
+    gras.resize(n + 1);
+    dp.resize(n + 1, 0);
 
     for (int i = 0; i < n; i++)
-        cin >> grs[i].l >> grs[i].r;
-    sort(grs.begin(), grs.end(), cmp);
+        cin >> gras[i].l >> gras[i].r;
+    sort(gras.begin(), gras.end(), cmp);
 
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        int last = -1;
+        int prev = -1;
         int l = 0, r = i - 1;
         while (l <= r)
         {
             int mid = l + ((r - l) >> 1);
-            if (grs[mid].r < grs[i].l)
+            if (gras[mid].r < gras[i].l)
             {
-                last = mid;
+                prev = mid;
                 l = mid + 1;
             }
             else
                 r = mid - 1;
         }
 
-        dp[i] = grs[i].r - grs[i].l + 1;
-        if (last >= 0)
-            dp[i] += dp[last];
+        dp[i] = gras[i].r - gras[i].l + 1;
+        if (prev >= 0)
+            dp[i] += dp[prev];
+        dp[i] = max(dp[i - 1], dp[i]);
     }
 
-    // for (int i = 0; i < dp.size(); i++)
-    //     cout << dp[i] << " ";
-    // cout << endl;
-
-    cout << *max_element(dp.begin(), dp.end()) << endl;
-
-    return 0;
+    cout << dp[n] << endl;
 }

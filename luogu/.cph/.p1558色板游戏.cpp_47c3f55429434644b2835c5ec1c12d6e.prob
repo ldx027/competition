@@ -1,0 +1,1 @@
+{"name":"Local: p1558色板游戏","url":"e:\\competition\\luogu\\p1558色板游戏.cpp","tests":[{"id":1730268886638,"input":"2 2 4\nC 1 1 2\nP 1 2\nC 2 2 2\nP 1 2","output":"2\n1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\competition\\luogu\\p1558色板游戏.cpp","group":"local","local":true}

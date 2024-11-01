@@ -1,94 +1,115 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-#define res register int
-#define ll long long
-
-int cnt, n, a[1000660], m, root[1000660], aaaa;
-
-inline int read()
+int cnt = 0;
+struct Node
 {
-    int x = 0, f = 1;
-    char ch = getchar();
-    while (!isdigit(ch))
+    int l = 0, r = 0, val;
+};
+vector<Node> tree;
+vector<int> root;
+vector<int> vec;
+
+int read()
+{
+    int sig = 1, num = 0;
+    char c = getchar();
+    while (c < '0' || c > '9')
     {
-        if (ch == '-')
-            f = -1;
-        ch = getchar();
+        if (c == '-')
+            sig = -1;
+        c = getchar();
     }
-    while (isdigit(ch))
+    while (c >= '0' && c <= '9')
     {
-        x = x * 10 + ch - 48;
-        ch = getchar();
+        num *= 10;
+        num += c - '0';
+        c = getchar();
     }
-    return x * f;
+
+    return sig * num;
 }
 
-struct ZXT
+int build(int l, int r)
 {
-    int l, r, sum;
-} tree[20006660];
+    int node = cnt++;
 
-inline void build(int &rt, int l, int r)
-{
-    rt = ++cnt;
     if (l == r)
     {
-        tree[rt].sum = a[l];
-        return;
+        tree[node].val = vec[l];
+        return node;
     }
-    int mid = (l + r) >> 1;
-    build(tree[rt].l, l, mid);
-    build(tree[rt].r, mid + 1, r);
+
+    int mid = l + ((r - l) >> 1);
+    tree[node].l = build(l, mid);
+    tree[node].r = build(mid + 1, r);
+
+    return node;
 }
-inline void update(int num, int &rt, int l, int r)
+
+int update(int prev, int l, int r, int idx, int val)
 {
-    tree[++cnt] = tree[rt];
-    rt = cnt;
-    int mid = (l + r) / 2;
+    int node = cnt++;
+    tree[node] = tree[prev];
+
     if (l == r)
     {
-        tree[rt].sum = aaaa;
-        return;
+        tree[node].val = val;
+        return node;
     }
-    if (num <= mid)
-        update(num, tree[rt].l, l, mid);
+
+    int mid = l + ((r - l) >> 1);
+    if (idx <= mid)
+        tree[node].l = update(tree[node].l, l, mid, idx, val);
+    else if (idx > mid)
+        tree[node].r = update(tree[node].r, mid + 1, r, idx, val);
+    
+    // tree[node].val = tree[tree[node].l].val + tree[tree[node].r].val;
+
+    return node;
+}
+
+int query(int node, int l, int r, int idx)
+{
+    if (l == r)
+        return tree[node].val;
+    
+    int mid = l + ((r - l) >> 1);
+    if (idx <= mid)
+        return query(tree[node].l, l, mid, idx);
     else
-        update(num, tree[rt].r, mid + 1, r);
+        return query(tree[node].r, mid + 1, r, idx);
 }
-inline int query(int rt, int l, int r, int kkk)
-{
-    if (l == r)
-        return tree[rt].sum;
-    int mid = (l + r) >> 1;
-    if (kkk <= mid)
-        return query(tree[rt].l, l, mid, kkk);
-    else
-        return query(tree[rt].r, mid + 1, r, kkk);
-}
+
 int main()
 {
-    n = read();
-    m = read();
-    for (res i = 1; i <= n; i++)
-        a[i] = read();
-    build(root[0], 1, n);
-    for (res i = 1; i <= m; i++)
+    int n, m;
+    n = read(), m = read();
+
+    tree.resize((n + m) << 4);
+    vec.resize(n + 1);
+    root.resize(m + 1);
+
+    for (int i = 1; i <= n; i++)
+        vec[i] = read();
+    root[0] = build(1, n); 
+    
+    int v, op, idx, val;
+    for (int i = 1; i <= m; i++)
     {
-        int xxxx = read();
-        int yyyy = read();
-        if (yyyy == 1)
+        v = read(), op = read(), idx = read();
+        if (op == 1)
         {
-            int zzzz = read();
-            aaaa = read();
-            root[i] = root[xxxx];
-            update(zzzz, root[i], 1, n);
+            val = read();
+            root[i] = update(root[v], 1, n, idx, val);
         }
         else
         {
-            int zzzz = read();
-            printf("%d\n", query(root[xxxx], 1, n, zzzz));
-            root[i] = root[xxxx];
+            cout << query(root[v], 1, n, idx) << endl;
+            root[i] = root[v];
         }
     }
+
+    return 0;
 }

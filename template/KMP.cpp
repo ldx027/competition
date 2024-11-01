@@ -1,45 +1,44 @@
 #include <iostream>
-#include <string>
 #include <vector>
+#include <string>
 using namespace std;
 
-vector<int> profix(string str)
+vector<int> getNext(string str)
 {
-    vector<int> pi(str.size(), 0);
-    for (int i = 1; i < str.size(); i++)
+    int n = str.size();
+    vector<int> next(n + 1, 0);
+    for (int i = 1; i < n; i++)
     {
-        int j = pi[i - 1];
-        while (j > 0 && str[i] != str[j]) j = pi[j - 1];
-        if (str[i] == str[j]) j++;
-        pi[i] = j;
+        int j = next[i];
+        while (j && str[i] != str[j])
+            j = next[j];
+        if (str[i] == str[j])
+            next[i + 1] = j + 1;
     }
-    
-    return pi;
+
+    return next;
 }
 
-void kmp(string str1, string str2)
+void kmp(string s, string p)
 {
-    string str = str2 + "#" + str1;
-    vector<int> pi = profix(str);
-    for (int i = str2.size() + 1; i < pi.size(); i++)
+    vector<int> next = getNext(p);
+    int j = 0;
+    for (int i = 0; i < s.size(); i++)
     {
-        if (pi[i] == str2.size())
-        {
-            cout << i - 2 * str2.size() + 1 << endl;
-        }
+        while (j && s[i] != p[j])
+            j = next[j];
+        if (s[i] == p[j])
+            j++;
+        if (j == p.size())
+            cout << i + 1 - j << endl;
     }
 }
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-
-    string str1, str2;
-    cin >> str1 >> str2;
-
-    kmp(str1, str2);
+    string s, p;
+    cin >> s >> p;
+    kmp(s, p);
 
     return 0;
 }
